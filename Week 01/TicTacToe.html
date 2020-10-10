@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多子棋</title>
+</head>
+<style>
+    .cell{
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 2rem;
+        border: 1px solid;
+        vertical-align: middle;
+    }
+</style>
+<body>
+    <div id="board"></div>
+</body>
+</html>
+<script>
+    // 0空 1⭕️ 2✖️
+    let pattern = [
+        [0,1,0],
+        [0,2,0],
+        [0,0,0],
+    ]
+
+    function show(){
+        const board = document.getElementById('board');
+        for (let y = 0; y < pattern.length; y++) {
+            for (let x = 0; x < pattern[y].length; x++) {
+                let cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.innerText = 
+                    pattern[x][y] === 2? '✖️':
+                    pattern[x][y] === 1? '⭕️': '';
+
+                board.appendChild(cell);
+            }
+            board.appendChild(document.createElement('br'));
+        }
+    }
+
+    
+
+    show(pattern)
+</script>
