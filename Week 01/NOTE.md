@@ -1,15 +1,21 @@
 # 五子棋学习总结
 - 数学交换运算： 加法/乘法
+- 一维数组表示二维矩阵（用乘法 表示 一维数组的行和列）：同余特性
+          
+      array[i*矩阵宽度+j] === array[i][j]
 - while(true) 是一个常见的表示无限循环的方法
-- Object.create 扁平结构数据？？
+- Object.create 扁平结构数据？？ 利用原型继承特点节省内存空间
+- break label 退出循环或block
 - 书写实践
 
-        <!-- 三元条件 -->
-        cell.innerText = 
-          pattern[x][y] === 2? '✖️':
-          pattern[x][y] === 1? '⭕️': ''
-        
-        <!-- 条件语句内赋值 -->
+      <!-- 三元条件 -->
+      cell.innerText = 
+        pattern[x][y] === 2? '✖️':
+        pattern[x][y] === 1? '⭕️': ''
+      
+      <!-- 条件语句内赋值 -->
+      let p
+      if(p = willWin(pattern,color)){}
 
 # 知识结构差异
 ### 自己列的目录
