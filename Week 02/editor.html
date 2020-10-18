@@ -1,0 +1,83 @@
+<style>
+    #board{
+        white-space: nowrap;
+    }
+    .cell{
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        line-height: 7px;
+        text-align: center;
+        border-right: 1px solid;
+        border-bottom: 1px solid;
+        vertical-align: middle;
+    }
+</style>
+<div id="container"></div>
+<button onclick="localStorage['map']=JSON.stringify(map)">保存</button>
+<script>
+const container = document.getElementById('container');
+let map = localStorage['map']? JSON.parse(localStorage['map']):Array(100*100).fill(0);
+for (let i = 0; i < 100; i++) {
+    for (let j = 0; j < 100; j++) {
+        let cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.addEventListener('mousemove', function(){
+            console.log('cell move')
+            if(mousedown){
+                if(clear){
+                    cell.style.background = '';
+                    map[i*100+j]=0
+                }else{
+                    cell.style.background = 'black';
+                    map[i*100+j]=1
+                }
+            }
+        })
+
+        if(map[i*100+j]===1){
+            cell.style.background = 'black';
+        }
+        container.appendChild(cell);
+    }
+    container.appendChild(document.createElement('br'));
+}
+
+let mousedown = false;
+let clear = false;
+document.addEventListener('mouseup', ()=>mousedown=false)
+document.addEventListener('mousedown', (e)=>{
+    mousedown=true;
+    clear = (e.which === 3);
+})
+document.addEventListener('contextmenu', (e)=>e.preventDefault())
+
+function path(map, start, end) {
+    let data = [start];
+
+    function insert(x,y) {
+        if(x<0 || x>=100 || y<0 || y>=100){
+            return
+        }
+        if(map[y*100+x]){
+            return
+        }
+
+        map[y*100+x] = 2;
+        data.push([x,y]);
+    }
+
+    while (data.length) {
+        let [x,y] = data.shift();
+        if(x===end[0] && y===end[1]){
+            return true
+        }
+        insert(x-1,y);
+        insert(x+1,y);
+        insert(x,y-1);
+        insert(x,y+1);
+    }
+
+    return false
+}
+</script>
